@@ -1,10 +1,20 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:schoolapp/util/StudentModel.dart';
 import 'package:schoolapp/util/config.dart';
 
 class PewUtil {
   PewText getText() {
     return PewText();
+  }
+
+  PewInput getInput() {
+    return PewInput();
+  }
+
+  Student getStudent() {
+    return Student();
   }
 
   PewNavBar getNav() {
@@ -17,6 +27,73 @@ class PewUtil {
 
   PewButton getButton() {
     return PewButton();
+  }
+}
+
+class PewInput {
+  String label = "Insira aqui seu texto!";
+  String hintText = "Você devia colocar um texto aqui";
+  String? errText;
+  TextInputType inputType = TextInputType.text;
+  TextEditingController controller = TextEditingController();
+
+  PewInput setLabel(String v) {
+    label = v;
+    return this;
+  }
+
+  PewInput setHintText(String v) {
+    hintText = v;
+    return this;
+  }
+
+  PewInput setErrorText(String? v) {
+    errText = v;
+    return this;
+  }
+
+  PewInput setInputType(TextInputType v) {
+    inputType = v;
+    return this;
+  }
+
+  PewInput setTextController(TextEditingController v) {
+    controller = v;
+    return this;
+  }
+
+  Widget get() {
+    return TextField(
+      keyboardType: inputType,
+      controller: controller,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+      decoration: InputDecoration(
+        hintText: 'Ex: $hintText',
+        hintStyle: const TextStyle(
+          color: Color.fromARGB(88, 255, 255, 255),
+          fontWeight: FontWeight.w500,
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderSide: BorderSide(
+            color: Colors.blueGrey,
+          ),
+        ),
+        errorText: errText,
+        errorStyle: const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.w500,
+        ),
+        labelText: label,
+        labelStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
   }
 }
 
@@ -38,8 +115,12 @@ class PewButton {
     return this;
   }
 
-  PewButton setText(String texto) {
-    text = PewText().get(texto);
+  PewButton setText(String? texto) {
+    if (texto == null) {
+      text = Container();
+    } else {
+      text = PewText().get(texto);
+    }
     return this;
   }
 

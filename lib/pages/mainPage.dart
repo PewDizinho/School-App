@@ -22,6 +22,11 @@ class _MainPageState extends State<MainPage> {
           .setPages(const [Profile(), Categories()]).setIcons(
               [Icons.person, Icons.apps, Icons.notifications]).get(context),
       backgroundColor: pu.getConfig().getBackgroundColor(),
+      body: Column(children: [
+        Center(
+          child: pt.isTitle().get("HOME PAGE"),
+        )
+      ]),
     );
   }
 }
